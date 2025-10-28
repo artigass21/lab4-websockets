@@ -9,6 +9,7 @@ import jakarta.websocket.OnMessage
 import jakarta.websocket.Session
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -60,7 +61,7 @@ class ElizaServerTest {
 
         // 3. EXPLAIN WHY assertEquals CANNOT BE USED AND WHY WE SHOULD CHECK THE INTERVAL
 
-        // No podemos usar assertEquals ya que los mensajes que recibimos de Eliza son aleatorios, es decir,
+        // No podemos usar assertEquals ya que los mensajes que recibimos de Eliza son aleatorios, es decir, 
         // el numero de mensajes recibidos puede variar en cada ejecución del test, por lo que no podemos
         // asegurar que siempre recibiremos el mismo número de mensajes.
 
@@ -70,6 +71,16 @@ class ElizaServerTest {
         assertEquals("The doctor is in.", list[0])
         assertEquals("What's on your mind?", list[1])
         assertEquals("---", list[2])
+
+        val possibleResponses = listOf(
+            "Do you believe it is normal to be feeling sad?",
+            "Do you enjoy being feeling sad?",
+            "How long have you been feeling sad?",
+            "I am sorry to hear you are feeling sad."
+        )
+        assert(list[3] in possibleResponses) {
+            "The response '${list[3]}' is not one of the expected responses."
+        }
     }
 }
 
@@ -100,8 +111,11 @@ class ComplexClient(
         list.add(message)
         latch.countDown()
         if (message == "---") {
-            session.basicRemote.sendText("I am feeling sad today")
+            session.basicRemote.sendText("I am feeling sad")
         }
+        // 5. COMPLETE if (expression) {
+        // 6. COMPLETE   sentence
+        // }
     }
 }
 
