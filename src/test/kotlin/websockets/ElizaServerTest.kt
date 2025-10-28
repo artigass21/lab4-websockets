@@ -9,7 +9,6 @@ import jakarta.websocket.OnMessage
 import jakarta.websocket.Session
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -54,14 +53,14 @@ class ElizaServerTest {
         // que latch await() termine su espera, al guardar el tamaño en una variable evitamos este problema ya
         // que trabajamos con un valor fijo de mensajes recibidos.
 
-        // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used; 
+        // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used;
 
         // Comprobamos que el tamaño de la lista está entre 4 y 6, ya que Eliza puede responder de forma aleatoria
         assertTrue(size in 4..6)
 
         // 3. EXPLAIN WHY assertEquals CANNOT BE USED AND WHY WE SHOULD CHECK THE INTERVAL
 
-        // No podemos usar assertEquals ya que los mensajes que recibimos de Eliza son aleatorios, es decir, 
+        // No podemos usar assertEquals ya que los mensajes que recibimos de Eliza son aleatorios, es decir,
         // el numero de mensajes recibidos puede variar en cada ejecución del test, por lo que no podemos
         // asegurar que siempre recibiremos el mismo número de mensajes.
 
