@@ -54,7 +54,7 @@ class ElizaServerTest {
         // que latch await() termine su espera, al guardar el tamaño en una variable evitamos este problema ya
         // que trabajamos con un valor fijo de mensajes recibidos.
 
-        // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used;
+        // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used; 
 
         // Comprobamos que el tamaño de la lista está entre 4 y 6, ya que Eliza puede responder de forma aleatoria
         assertTrue(size in 4..6)
