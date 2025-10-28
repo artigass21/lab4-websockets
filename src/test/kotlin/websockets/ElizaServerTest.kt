@@ -71,19 +71,19 @@ class ElizaServerTest {
         assertEquals("What's on your mind?", list[1])
         assertEquals("---", list[2])
 
-        val possibleResponses = listOf(
-            "Do you believe it is normal to be feeling sad?",
-            "Do you enjoy being feeling sad?",
-            "How long have you been feeling sad?",
-            "I am sorry to hear you are feeling sad.",
-        )
+        val possibleResponses =
+            listOf(
+                "Do you believe it is normal to be feeling sad?",
+                "Do you enjoy being feeling sad?",
+                "How long have you been feeling sad?",
+                "I am sorry to hear you are feeling sad.",
+            )
 
         assert(
             list[3] in possibleResponses,
         ) {
             "The response '${list[3]}' is not one of the expected responses."
         }
-
     }
 }
 
