@@ -78,9 +78,12 @@ class ElizaServerTest {
             "I am sorry to hear you are feeling sad.",
         )
 
-        assert(list[3] in possibleResponses) {
+        assert(
+            list[3] in possibleResponses,
+        ) {
             "The response '${list[3]}' is not one of the expected responses."
         }
+
     }
 }
 
