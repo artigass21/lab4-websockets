@@ -8,6 +8,7 @@ import jakarta.websocket.ContainerProvider
 import jakarta.websocket.OnMessage
 import jakarta.websocket.Session
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -36,7 +37,7 @@ class ElizaServerTest {
         assertEquals("The doctor is in.", list[0])
     }
 
-    @Disabled // Remove this line when you implement onChat
+    // @Disabled // Remove this line when you implement onChat
     @Test
     fun onChat() {
         logger.info { "Test thread" }
@@ -48,9 +49,28 @@ class ElizaServerTest {
         latch.await()
         val size = list.size
         // 1. EXPLAIN WHY size = list.size IS NECESSARY
+
+        // El size = list.size es necesario ya que el valor de la variable puede seguir aumentando despues de
+        // que latch await() termine su espera, al guardar el tamaño en una variable evitamos este problema ya
+        // que trabajamos con un valor fijo de mensajes recibidos.
+
         // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used;
+
+        // Comprobamos que el tamaño de la lista está entre 4 y 6, ya que Eliza puede responder de forma aleatoria
+        assertTrue(size in 4..6)
+
         // 3. EXPLAIN WHY assertEquals CANNOT BE USED AND WHY WE SHOULD CHECK THE INTERVAL
+
+        // No podemos usar assertEquals ya que los mensajes que recibimos de Eliza son aleatorios, es decir, 
+        // el numero de mensajes recibidos puede variar en cada ejecución del test, por lo que no podemos
+        // asegurar que siempre recibiremos el mismo número de mensajes.
+
         // 4. COMPLETE assertEquals(XXX, list[XXX])
+
+        // Verificamos que los primeros mensajes son los esperados
+        assertEquals("The doctor is in.", list[0])
+        assertEquals("What's on your mind?", list[1])
+        assertEquals("---", list[2])
     }
 }
 
@@ -73,7 +93,6 @@ class ComplexClient(
     private val latch: CountDownLatch,
 ) {
     @OnMessage
-    @Suppress("UNUSED_PARAMETER") // Remove this line when you implement onMessage
     fun onMessage(
         message: String,
         session: Session,
@@ -81,9 +100,9 @@ class ComplexClient(
         logger.info { "Client received: $message" }
         list.add(message)
         latch.countDown()
-        // 5. COMPLETE if (expression) {
-        // 6. COMPLETE   sentence
-        // }
+        if (message == "---") {
+            session.basicRemote.sendText("I am feeling sad today")
+        }
     }
 }
 
