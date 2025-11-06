@@ -55,8 +55,8 @@ class ElizaServerTest {
 
         // 2. REPLACE BY assertXXX expression that checks an interval; assertEquals must not be used;
 
-        // Comprobamos que el tamaño de la lista está entre 4 y 6, ya que Eliza puede responder de forma aleatoria
-        assertTrue(size in 4..6)
+        // Comprobamos que el tamaño de la lista está entre 4 y 5, ya que Eliza puede responder de forma aleatoria
+        assertTrue(size in 4..5)
 
         // 3. EXPLAIN WHY assertEquals CANNOT BE USED AND WHY WE SHOULD CHECK THE INTERVAL
 
